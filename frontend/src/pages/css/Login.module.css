@@ -1,0 +1,231 @@
+:root{
+    --primary-color: #6a28d9;
+    --primary-color-hover: #5421b3;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+.container {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  height: 80vh;
+  background-color: white;
+  box-shadow: 0px 0px 10px 12px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Left Section */
+.left_section {
+  background-color: var(--primary-color);
+  color: white;
+  flex: 1;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.leftLogo{
+    min-width: 100px;
+    min-height: 100px;
+}
+
+.left_section h1 {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.testimonial_info {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.loginMainSvg {
+  width: 25rem;
+  height: 25rem;
+}
+
+
+
+/* Right Section */
+.right_section {
+  flex: 1;
+  padding: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.right_logo{
+    display:none ;
+}
+.sign_in_box {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+
+
+}
+
+
+.sign_in_box h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.sign_in_box p {
+  margin-bottom: 20px;
+  color: #6a6a6a;
+}
+
+.sign_in_box  > input {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.sign_in_box input:focus{
+    outline-color: var(--primary-color);
+}
+
+.checkAndForgotContainer{
+    font-size: 14px; /* Adjust font size as needed */
+    color: #6a6a6a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 2px solid red; //for debuggin */
+    padding: 0%;
+    margin-top: 50px;
+}
+
+.custom_checkbox {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    user-select: none; /* Prevent text selection on click */
+    margin: 10px 0;
+}
+
+.custom_checkbox input {
+    opacity: 0; /* Hide the default checkbox */
+    position: absolute;
+    cursor: pointer;
+    /* margin: auto 0; */
+}
+
+.checkmark {
+    width: 20px; /* Size of the custom checkbox */
+    height: 20px;
+    background-color: #fff; 
+    border-radius: 4px; /* Rounded corners */
+    border: 2px solid #ddd;
+    display: inline-block;
+    transition: background-color 0.3s; /* Smooth transition for background */
+    position: relative;
+}
+
+.checkboxText {
+    position: absolute;
+    min-width: 100px;
+}
+/* Checkbox checked state */
+.custom_checkbox input:checked + .checkmark {
+    background-color: #6a28d9; /* Change background color when checked */
+}
+
+/* Checkmark appearance when checked */
+.custom_checkbox input:checked + .checkmark:after {
+    content: "";
+    position: absolute;
+    left: 50%; /* Center horizontally */
+    top: 50%; /* Center vertically */
+    width: 5px;
+    height: 10px;
+    border: solid white; /* Color of the checkmark */
+    border-width: 0 2px 2px 0; /* Only draw the checkmark */
+    transform: translate(-50%, -50%) rotate(45deg); /* Rotate to create a checkmark */
+}
+
+
+.sign_in_btn {
+  width: 100%;
+  padding: 15px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.sign_in_btn:focus{
+    outline:2px solid #5421b3;
+}
+.sign_in_btn:hover {
+  background-color: var(--primary-color-hover);
+}
+
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+/* Responsive Design: Hide the left section on small screens */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    min-height: 70vh;
+    max-width: 95vw;
+  }
+
+  .left_section {
+    display: none; /* Hide the left section */
+  }
+
+  .right_section {
+    width: 100%;
+    padding: 40px;
+  }
+
+  .right_logo{
+    display:block ;
+    width: 70%;
+    margin: 0 auto;
+    margin-top: -50px;
+    }
+
+  .sign_in_box {
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  .sign_in_box input {
+    padding: 12px;
+  }
+
+  .sign_in_btn {
+    padding: 12px;
+  }
+
+  .other_options button {
+    padding: 12px;
+  }
+}

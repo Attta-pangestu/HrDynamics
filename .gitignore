@@ -1,0 +1,8 @@
+# Ignore node_modules, a typical folder for Node.js dependencies
+node_modules/
+
+# Ignore environment files
+.env
+
+
+userSeed.js
