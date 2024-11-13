@@ -28,8 +28,8 @@ const AddDepartment = ({ setAddDepartmentVisibility }) => {
           },
         }
       );
-      console.log(response);
-      console.log("done");
+      // console.log(response);
+      // console.log("done");
       navigate("/admin-dashboard/departments/");
 
       if (response.data.success) {
