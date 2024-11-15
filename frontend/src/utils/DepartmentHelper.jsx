@@ -1,6 +1,5 @@
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
 
 export const columns = [
   {
@@ -19,20 +18,19 @@ export const columns = [
   },
 ];
 
-export const DepartmentButtons = ({ _id, onEdit }) => {
-  const navigate = useNavigate();
-
-  return (
-    <>
-      <button
-        onClick={onEdit}
-        className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
-      >
-        <FiEdit />
-      </button>
-      <button className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 ml-2">
-        <RiDeleteBin6Line />
-      </button>
-    </>
-  );
-};
+export const DepartmentButtons = ({ _id, onEdit, onDelete }) => (
+  <>
+    <button
+      onClick={onEdit}
+      className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+    >
+      <FiEdit />
+    </button>
+    <button
+      onClick={onDelete}
+      className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 ml-2"
+    >
+      <RiDeleteBin6Line />
+    </button>
+  </>
+);

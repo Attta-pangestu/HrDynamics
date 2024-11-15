@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
-const EditDepartment = ({ setEditDepartmentVisibility, department }) => {
+const EditDepartment = ({ setEditDepartmentVisibility, department, fetchDepartments}) => {
   const [isFocus, setIsFocus] = useState(false);
   const [updatedDepartment, setUpdatedDepartment] = useState({
-    deptName: department.deptName || "",
-    description: department.description || "",
+    deptName: department?.deptName || "",
+    description: department?.description || "",
   });
 
   const handleChange = (e) => {
@@ -28,6 +28,7 @@ const EditDepartment = ({ setEditDepartmentVisibility, department }) => {
 
       if (response.data.success) {
         setEditDepartmentVisibility(false);
+        fetchDepartments();
       }
     } catch (error) {
       if (error.response && !error.response.data.success) {
@@ -113,7 +114,7 @@ const EditDepartment = ({ setEditDepartmentVisibility, department }) => {
           </button>
           <button
             type="button"
-            className="bg-red-500 text-white mt-2"
+            className=" bg-red-500 hover:bg-red-600 text-white font-semibold py-2 transition duration-300"
             style={btnStyle}
             onClick={() => setEditDepartmentVisibility(false)}
           >

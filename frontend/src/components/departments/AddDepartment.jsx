@@ -1,15 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-const AddDepartment = ({ setAddDepartmentVisibility }) => {
+const AddDepartment = ({ setAddDepartmentVisibility,fetchDepartments }) => {
   const [isFocus, setIsFocus] = useState(false);
   const [department, setDepartment] = useState({
     deptName: "",
     description: "",
   });
-
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,13 +25,10 @@ const AddDepartment = ({ setAddDepartmentVisibility }) => {
           },
         }
       );
-      // console.log(response);
-      // console.log("done");
-      navigate("/admin-dashboard/departments/");
-
+      
       if (response.data.success) {
         setAddDepartmentVisibility(false);
-        navigate("/admin-dashboard/departments/");
+        fetchDepartments(); // to refresh the table after adding new dept
       }
     } catch (error) {
       if (error.response && !error.response.data.success) {
