@@ -1,38 +1,26 @@
-import jwt from 'jsonwebtoken'
-import User from '../models/User.js'
-const verifyUser = async (req,res,next) =>{
+import jwt from 'jsonwebtoken';
+import User from '../models/User.js';
+
+const authMiddleware = async (req, res, next) => {
     try {
-        const token = req.headers.authorization.split(' ')[1]
-        if(!token) {
-            return res.status(404).json({
-                success : false,
-                error: "token not provided"
-            })
-        }
-        const decoded = jwt.verify(token,process.env.JWT_KEY)
-        if (!decoded) {
-            return res.status(404).json({
-                success : false,
-                error: "token not valid"
-            })
-        }
-        const user = await User.findById({_id: decoded._id}).select('-password')
-
-        if(!user){
-            return res.status(404).json({
-                success : false,
-                error: "user not found"
-            }) 
+        const token = req.header('Authorization')?.replace('Bearer ', '');
+        
+        if (!token) {
+            return res.status(401).json({ message: 'No token, authorization denied' });
         }
 
-        req.user = user
-        next()
+        const decoded = jwt.verify(token, process.env.JWT_KEY); // Changed from JWT_SECRET to JWT_KEY
+        const user = await User.findById(decoded.userId);
+        
+        if (!user) {
+            return res.status(401).json({ message: 'User not found' });
+        }
+
+        req.user = user;
+        next();
     } catch (error) {
-        return res.status(404).json({
-            success : false,
-            error: "server side Error"
-        })
+        res.status(401).json({ message: 'Token is not valid' });
     }
-}
+};
 
-export default verifyUser
+export default authMiddleware;

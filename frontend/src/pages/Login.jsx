@@ -17,7 +17,7 @@ const Login = () => {
     const handleSubmit = async(e) =>{
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:5000/api/auth/login", { email, password });
+          const response = await axios.post("/api/auth/login", { email, password });
            if(response.data.success===true){
             // console.log(response); // for debugging
             // alert("ok")
@@ -154,6 +154,9 @@ const Login = () => {
             <button className={style.sign_in_btn} typeof="submit">
               Sign in
             </button>
+            <p className={style.login_link}>
+    Don't have an account? <a href="/register">Register here</a>
+</p>
           </form>
         </div>
       </div>

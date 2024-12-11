@@ -17,7 +17,7 @@ const EditDepartment = ({ setEditDepartmentVisibility, department, fetchDepartme
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/department/${department._id}`,
+        `http://https://5000-idx-hrdynamics-1733934878574.cluster-e3wv6awer5h7kvayyfoein2u4a.cloudworkstations.dev//api/department/${department._id}`,
         updatedDepartment,
         {
           headers: {

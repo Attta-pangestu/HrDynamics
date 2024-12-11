@@ -11,6 +11,7 @@ import './App.css'
 // --------------pages-----------------
 import Login from './pages/Login'
 import AdminDashboard from './pages/AdminDashboard'
+import Register from "./pages/Register"
 // import EmployeeDashboard from './pages/EmployeeDashboard'
 import NotFound404 from './pages/NotFound404'
 
@@ -30,6 +31,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Navigate to="/admin-dashboard"/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
+        <Route path='/register' element={<Register/>}></Route>
         <Route path='/admin-dashboard' element={
           <PrivateRoutes>
             <RoleBasedRoutes requiredRole={["admin"]}>

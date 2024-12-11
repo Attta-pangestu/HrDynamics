@@ -17,7 +17,7 @@ const AddDepartment = ({ setAddDepartmentVisibility,fetchDepartments }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/department/add",
+        "http://https://5000-idx-hrdynamics-1733934878574.cluster-e3wv6awer5h7kvayyfoein2u4a.cloudworkstations.dev//api/department/add",
         department,
         {
           headers: {

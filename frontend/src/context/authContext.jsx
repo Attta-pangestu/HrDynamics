@@ -12,7 +12,7 @@ const authContext = ({children}) => {
             try {
                 const token = localStorage.getItem('token')
                 if(token){
-                    const response = await axios.get("http://localhost:5000/api/auth/verify",{
+                    const response = await axios.get("http://https://5000-idx-hrdynamics-1733934878574.cluster-e3wv6awer5h7kvayyfoein2u4a.cloudworkstations.dev//api/auth/verify",{
                         headers:{
                            Authorization :  `Bearer ${token}`
                         }

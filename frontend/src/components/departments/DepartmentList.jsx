@@ -34,7 +34,7 @@ const DepartmentList = () => {
   const fetchDepartments = async () => {
     setDeptLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/department", {
+      const response = await axios.get("http://https://5000-idx-hrdynamics-1733934878574.cluster-e3wv6awer5h7kvayyfoein2u4a.cloudworkstations.dev//api/department", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -77,7 +77,7 @@ const DepartmentList = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this department?")) {
       try {
-        const response = await axios.delete(`http://localhost:5000/api/department/${id}`, {
+        const response = await axios.delete(`http://https://5000-idx-hrdynamics-1733934878574.cluster-e3wv6awer5h7kvayyfoein2u4a.cloudworkstations.dev//api/department/${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
