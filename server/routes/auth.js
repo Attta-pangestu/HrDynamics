@@ -10,84 +10,101 @@ const router = express.Router();
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await User.findOne({ email });
 
+        // Find user by email
+        const user = await User.findOne({ email });
         if (!user) {
-            return res.json({ success: false, error: 'Invalid credentials' });
+            return res.status(401).json({
+                success: false,
+                error: "User not found"
+            });
         }
 
+        // Check password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.json({ success: false, error: 'Invalid credentials' });
+            return res.status(401).json({
+                success: false,
+                error: "Invalid credentials"
+            });
         }
 
+        // Create JWT token
         const token = jwt.sign(
             { userId: user._id },
-            process.env.JWT_SECRET,
-            { expiresIn: '1d' }
+            process.env.JWT_KEY,
+            { expiresIn: '24h' }
         );
 
         res.json({
             success: true,
+            token,
             user: {
                 id: user._id,
-                fullName: user.fullName,
-                email: user.email,
-                role: user.role
-            },
-            token
+                username: user.username,
+                email: user.email
+            }
         });
+
     } catch (error) {
-        res.json({ success: false, error: 'Login failed' });
+        console.error('Login error:', error);
+        res.status(500).json({
+            success: false,
+            error: "Server error during login"
+        });
     }
 });
 
 // Register route
 router.post('/register', async (req, res) => {
     try {
-        const { fullName, email, password, role } = req.body;
+        const { username, email, password } = req.body;
 
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.json({ 
-                success: false, 
-                error: 'Email already registered' 
+        // Check if user already exists
+        let user = await User.findOne({ email });
+        if (user) {
+            return res.status(400).json({
+                success: false,
+                error: "User already exists"
             });
         }
 
+        // Hash password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        const newUser = new User({
-            fullName,
+        // Create new user
+        user = new User({
+            username,
             email,
-            password: hashedPassword,
-            role: role || 'employee'
+            password: hashedPassword
         });
 
-        await newUser.save();
+        await user.save();
+
+        // Create JWT token
+        const token = jwt.sign(
+            { userId: user._id },
+            process.env.JWT_KEY,
+            { expiresIn: '24h' }
+        );
 
         res.json({
             success: true,
-            message: 'Registration successful'
+            token,
+            user: {
+                id: user._id,
+                username: user.username,
+                email: user.email
+            }
         });
 
     } catch (error) {
         console.error('Registration error:', error);
-        res.json({ 
-            success: false, 
-            error: 'Registration failed. Please try again.' 
+        res.status(500).json({
+            success: false,
+            error: "Server error during registration"
         });
-    }
-});
-
-// Verify route
-router.get('/verify', authMiddleware, async (req, res) => {
-    try {
-        const user = await User.findById(req.user._id).select('-password');
-        res.json({ success: true, user });
-    } catch (error) {
-        res.json({ success: false, error: 'Verification failed' });
     }
 });
 
